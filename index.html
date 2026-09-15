@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Flowers For You ❤️</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Georgia, serif;
+    background:
+        radial-gradient(circle, rgba(150,150,150,.08) 1px, transparent 2px),
+        #f7f3ed;
+    background-size: 25px 25px;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    min-height: 700px;
+    text-align: center;
+    padding: 50px 15px;
+    position: relative;
+}
+
+/* TITLE */
+
+.title {
+    font-family: "Brush Script MT", cursive;
+    font-size: 48px;
+    color: #a51d2d;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    color: #8c6868;
+    letter-spacing: 1px;
+}
+
+/* FLOWERS */
+
+.flowers {
+    position: relative;
+    height: 270px;
+    margin-top: 20px;
+}
+
+.rose {
+    position: absolute;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 5;
+
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            #ffdad8 0 8%,
+            #b91d2b 9% 25%,
+            #df3542 26% 42%,
+            #a80e1e 43% 60%,
+            #d52636 61% 75%,
+            #8e0918 76%
+        );
+
+    box-shadow:
+        inset 5px 5px 8px rgba(255,255,255,.35),
+        3px 5px 7px rgba(0,0,0,.2);
+
+    transition: .3s;
+}
+
+.rose:hover {
+    filter: brightness(1.15);
+    transform: scale(1.15);
+}
+
+.rose::before {
+    content: "";
+    position: absolute;
+    inset: 10px;
+    border-radius: 50%;
+    border: 3px solid rgba(255,255,255,.25);
+}
+
+.rose::after {
+    content: "";
+    position: absolute;
+    inset: 19px;
+    border-radius: 50%;
+    border: 4px solid rgba(110,0,10,.25);
+}
+
+.rose1 {
+    left: 50%;
+    top: 5px;
+    transform: translateX(-50%);
+}
+
+.rose2 {
+    left: 27%;
+    top: 80px;
+    transform: rotate(-12deg);
+}
+
+.rose3 {
+    right: 27%;
+    top: 80px;
+    transform: rotate(12deg);
+}
+
+.rose4 {
+    left: 50%;
+    top: 135px;
+    transform: translateX(-50%) scale(.75);
+}
+
+/* STEMS */
+
+.stem {
+    position: absolute;
+    width: 7px;
+    height: 150px;
+    background: linear-gradient(to right, #47752c, #80a83c);
+    border-radius: 10px;
+    transform-origin: bottom;
+}
+
+.stem1 {
+    left: 50%;
+    top: 65px;
+}
+
+.stem2 {
+    left: 43%;
+    top: 120px;
+    transform: rotate(-25deg);
+}
+
+.stem3 {
+    right: 43%;
+    top: 120px;
+    transform: rotate(25deg);
+}
+
+.stem4 {
+    left: 50%;
+    top: 155px;
+    transform: translateX(-50%);
+}
+
+/* LEAVES */
+
+.leaf {
+    position: absolute;
+    width: 40px;
+    height: 19px;
+    background: #629137;
+    border-radius: 100% 0 100% 0;
+}
+
+.leaf1 {
+    left: 37%;
+    top: 170px;
+    transform: rotate(25deg);
+}
+
+.leaf2 {
+    right: 35%;
+    top: 180px;
+    transform: rotate(155deg);
+}
+
+.leaf3 {
+    left: 42%;
+    top: 205px;
+    transform: rotate(40deg);
+}
+
+.leaf4 {
+    right: 41%;
+    top: 205px;
+    transform: rotate(140deg);
+}
+
+/* VASE */
+
+.vase {
+    position: relative;
+    margin: -15px auto 0;
+    width: 145px;
+    height: 150px;
+
+    background: linear-gradient(
+        90deg,
+        #b5091c,
+        #e21c30 50%,
+        #a80718
+    );
+
+    border-radius: 25px 25px 55px 55px;
+
+    box-shadow:
+        5px 8px 12px rgba(0,0,0,.18);
+}
+
+.vase::before {
+    content: "";
+    position: absolute;
+    width: 80px;
+    height: 25px;
+    left: 32px;
+    top: -12px;
+    background: #9d0919;
+    border-radius: 50%;
+}
+
+.vaseText {
+    position: absolute;
+    width: 100%;
+    top: 55px;
+
+    color: white;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 18px;
+    text-transform: uppercase;
+}
+
+/* LETTER POPUP */
+
+.messageBox {
+    position: fixed;
+    inset: 0;
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0,0,0,.6);
+
+    z-index: 100;
+
+    padding: 20px;
+}
+
+.message {
+    width: 100%;
+    max-width: 470px;
+    max-height: 85vh;
+
+    overflow-y: auto;
+
+    padding: 32px 25px;
+
+    background: #fff8f2;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,.4);
+
+    animation: letterOpen .45s ease;
+
+    text-align: left;
+}
+
+.message h2 {
+    text-align: center;
+
+    color: #a51d2d;
+
+    font-family: "Brush Script MT", cursive;
+
+    font-size: 38px;
+
+    margin: 0 0 20px;
+}
+
+.message p {
+    color: #654545;
+
+    font-family: Arial, sans-serif;
+
+    line-height: 1.75;
+
+    font-size: 15px;
+
+    margin: 0 0 16px;
+}
+
+.close {
+    display: block;
+
+    width: max-content;
+
+    margin: 20px auto 0;
+
+    padding: 9px 22px;
+
+    background: #b7192c;
+
+    color: white;
+
+    border-radius: 20px;
+
+    cursor: pointer;
+
+    font-family: Arial, sans-serif;
+}
+
+@keyframes letterOpen {
+
+    from {
+        transform: scale(.3) rotate(-5deg);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1) rotate(0);
+        opacity: 1;
+    }
+}
+
+/* MOBILE */
+
+@media(max-width:600px) {
+
+    .container {
+        min-height: 650px;
+        padding-top: 35px;
+    }
+
+    .title {
+        font-size: 40px;
+    }
+
+    .flowers {
+        transform: scale(.9);
+    }
+
+    .message {
+        max-height: 88vh;
+        padding: 28px 20px;
+    }
+
+    .message p {
+        font-size: 14px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="title">
+        Happy Anniversary love
+
+    </div>
+
+    <div class="subtitle">
+        CLICK A FLOWER FOR A SURPRISE ❤️
+    </div>
+
+
+    <!-- FLOWERS -->
+
+    <div class="flowers">
+
+        <!-- STEMS -->
+        <div class="stem stem1"></div>
+        <div class="stem stem2"></div>
+        <div class="stem stem3"></div>
+        <div class="stem stem4"></div>
+
+        <!-- LEAVES -->
+        <div class="leaf leaf1"></div>
+        <div class="leaf leaf2"></div>
+        <div class="leaf leaf3"></div>
+        <div class="leaf leaf4"></div>
+
+
+        <!-- CLICKABLE FLOWERS -->
+
+        <div
+            class="rose rose1"
+            onclick="openLetter(1)"
+            title="Click me">
+        </div>
+
+        <div
+            class="rose rose2"
+            onclick="openLetter(2)"
+            title="Click me">
+        </div>
+
+        <div
+            class="rose rose3"
+            onclick="openLetter(3)"
+            title="Click me">
+        </div>
+
+        <div
+            class="rose rose4"
+            onclick="openLetter(4)"
+            title="Click me">
+        </div>
+
+    </div>
+
+
+    <!-- VASE -->
+
+    <div class="vase">
+
+        <div class="vaseText">
+            FOR YOU<br>
+            WITH LOVE ❤️
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- LETTER POPUP -->
+
+<div class="messageBox" id="messageBox">
+
+    <div class="message">
+
+        <h2 id="letterTitle"></h2>
+
+        <div id="letterText"></div>
+
+        <span
+            class="close"
+            onclick="closeLetter()">
+            Close ❤️
+        </span>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   YOUR 4 LETTERS
+========================= */
+
+const letters = {
+
+    1: {
+
+        title: "For Us ❤️",
+
+        text: `
+
+        <p>
+        Alam kong hindi madali yung LDR natin.
+        May mga araw na sobrang nami-miss kita,
+        may times na gusto kitang makasama pero
+        hanggang chat at tawag lang muna tayo.
+        </p>
+
+        <p>
+        Minsan nag-aaway tayo, nagkakaroon ng
+        misunderstandings, at may mga pagkakataon
+        na hindi natin agad naiintindihan ang isa't isa.
+        Pero kahit ganun, ang pinakaimportante sa akin,
+        pagkatapos ng lahat ng iyon, ikaw pa rin ang
+        pinipili ko, at pinipili mo pa rin ako. 🥺❤️
+        </p>
+
+        <p>
+        Hindi naman ako naghahanap ng perfect na relationship.
+        Gusto ko lang yung relationship na kahit may problema,
+        hindi agad sumusuko. Gusto kong tayo yung dalawang
+        taong willing pa ring ayusin ang lahat dahil mahalaga
+        tayo sa isa't isa.
+        </p>
+
+        `
+    },
+
+
+    2: {
+
+        title: "You Are Special 💗",
+
+        text: `
+
+        <p>
+        Alam kong hindi ako yung first love mo,
+        at baka hindi rin ako yung greatest love
+        na dumating sa buhay mo. Pero honestly,
+        hindi ko naman kailangan na maging una ako.
+        </p>
+
+        <p>
+        Ang mahalaga sa akin, ako yung pinili mong
+        mahalin ngayon. 🥺❤️ Sobrang grateful ako
+        kasi kahit nakita mo na yung mga flaws ko,
+        yung mga pagkakamali ko, yung mga ugali kong
+        minsan mahirap intindihin, nandiyan ka pa rin.
+        </p>
+
+        <p>
+        Hindi ko man palaging nasasabi, pero sobrang
+        naa-appreciate ko yung patience at pagmamahal
+        na binibigay mo sa akin.
+        </p>
+
+        <p>
+        Thank you kasi hindi mo ako minahal dahil perfect ako.
+        Minahal mo ako kahit alam mong marami pa akong
+        kailangang matutunan at baguhin.
+        </p>
+
+        `
+    },
+
+
+    3: {
+
+        title: "My Promise 🤍",
+
+        text: `
+
+        <p>
+        Hindi ko ipapangako na magiging perfect ako,
+        kasi alam kong magkakamali pa rin ako minsan.
+        Pero ang maipapangako ko, hindi ako titigil na
+        maging better para sa'yo at para sa atin.
+        </p>
+
+        <p>
+        I'll give you all the love and loyalty that I have.
+        Ikaw yung gusto kong piliin, hindi lang kapag okay tayo,
+        kundi pati kapag may tampuhan, misunderstandings,
+        at mga araw na hindi tayo okay. 🤍
+        </p>
+
+        <p>
+        I'll keep working on myself and on the way I treat you.
+        Ayokong maging mabait at sweet lang sa simula tapos
+        eventually magbago. Gusto kong maging consistent.
+        </p>
+
+        <p>
+        Gusto kong maging best guy for you, hindi pansamantala,
+        kundi pangmatagalan. Hindi dahil kailangan kong maging
+        perfect para maging deserving sa'yo, kundi dahil gusto
+        kong ipakita sa actions ko kung gaano kita pinapahalagahan.
+        </p>
+
+        `
+    },
+
+
+    4: {
+
+        title: "Thank You, Love 💌",
+
+        text: `
+
+        <p>
+        Thank you for loving me genuinely.
+        Thank you for accepting me as I am,
+        even when I'm not at my best.
+        Thank you for staying kahit may mga pagkakataong
+        pareho tayong napapagod at hindi nagkakaintindihan. 🥺🫂
+        </p>
+
+        <p>
+        Every moment with you means a lot to me,
+        kahit simple lang—yung mga random nating usapan,
+        tawanan, lambingan, at kahit yung mga arguments
+        natin na eventually may natututunan tayo tungkol
+        sa isa't isa.
+        </p>
+
+        <p>
+        LDR man tayo ngayon, gusto kong maniwala na kaya
+        nating malampasan yung distance basta pareho tayong
+        willing. At kung dumating ulit yung araw na mag-away tayo,
+        sana maalala natin kung bakit tayo nagsimula at kung
+        bakit natin piniling manatili.
+        </p>
+
+        <p>
+        Hindi man ako ang una mong minahal, gusto kong maging
+        taong pipiliin mong mahalin at makasama habang patuloy
+        tayong lumalaki at nagbabago. ❤️
+        </p>
+
+        <p>
+        Kaya thank you, love.
+        Thank you for choosing me kahit hindi ako perfect.
+        Thank you for staying kahit hindi laging madali.
+        At higit sa lahat, thank you for loving the real me.
+        </p>
+
+        <p>
+        I'll keep choosing you, keep loving you,
+        and keep giving you my loyalty.
+        Ikaw pa rin. Ngayon, bukas, at sa bawat araw
+        na pareho nating pipiliing ipaglaban kung ano
+        yung meron tayo. ❤️
+        </p>
+
+        `
+    }
+
+};
+
+
+/* =========================
+   OPEN LETTER
+========================= */
+
+function openLetter(number) {
+
+    document.getElementById("letterTitle").innerHTML =
+        letters[number].title;
+
+    document.getElementById("letterText").innerHTML =
+        letters[number].text;
+
+    document.getElementById("messageBox").style.display =
+        "flex";
+
+    document.body.style.overflow = "hidden";
+}
+
+
+/* =========================
+   CLOSE LETTER
+========================= */
+
+function closeLetter() {
+
+    document.getElementById("messageBox").style.display =
+        "none";
+
+    document.body.style.overflow = "auto";
+}
+
+
+/* CLICK OUTSIDE LETTER TO CLOSE */
+
+document
+.getElementById("messageBox")
+.addEventListener("click", function(event) {
+
+    if (event.target === this) {
+
+        closeLetter();
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
